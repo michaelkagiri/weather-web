@@ -1,86 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- links -->
-    <link rel="icon" type="png" href="img/icon.png" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <link rel="stylesheet" href="css/style.css" />
-    <!-- Title -->
-    <title>Weather App</title>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Advanced Calculator</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+    }
 
-  <body>
-    <div class="pc">
-      <!-- nav section -->
-      <nav>
-        <ul>
-          <li>
-            <a class="active" href="index.html"
-              ><i class="fa-solid fa-location-arrow"></i
-            ></a>
-          </li>
-          <li>
-            <a href="search.html"
-              ><i class="fa-solid fa-magnifying-glass"></i
-            ></a>
-          </li>
-          <li>
-            <a href="world.html"><i class="fa-solid fa-earth-americas"></i></a>
-          </li>
-        </ul>
-      </nav>
-      <div id="screen">
-        <!-- city name -->
-        <div class="city-name">
-          <i class="fa-solid fa-map-pin"></i>
-          <h1 id="city-name">Nairobi</h1>
-        </div>
-        <!-- weather icon -->
-        <div class="weather-icon-css">
-          <img class="weather-icon" src="img/sun.png" />
-        </div>
-        <!-- weather details -->
-        <div class="weather-description">
-          <div class="show-metric" id="metric">0°</div>
-          <div class="weather-details">
-            <div class="weather-main" id="weather-main">Kasarani</div>
-            <div class="h-f">
-              <div class="show-humidity">H: <span id="humidity">30</span></div>
-              ||
-              <div class="show-humidity">
-                F: <span id="feels-like">30</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Today-forecast -->
-        <div class="forcasts-box">
-          <div class="today-forecast">
-            <h4>TODAY</h4>
-            <div class="weather-icon-today">
-              <img class="weather-icons" src="img/sun.png" />
-            </div>
-            <div class="temp-today">
-              <span id="temp-min-today">50°</span><span>/ </span
-              ><span id="temp-max-today">55°</span>
-            </div>
-            <div class="weather-main-today" id="weather-main">Kasarani</div>
-          </div>
+    .calculator {
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      background-color: #222;
+      padding: 20px;
+      width: 320px;
+    }
 
-          <!-- 6day Forecast -->
-          <div class="forecast">
-            <h5>6-DAYS FORECAST</h5>
-            <div id="forecast-box"></div>
-          </div>
-        </div>
-      </div>
+    .display {
+      width: 100%;
+      height: 60px;
+      font-size: 2em;
+      text-align: right;
+      margin-bottom: 10px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #fff;
+      box-sizing: border-box;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    button {
+      padding: 20px;
+      font-size: 1.5em;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #444;
+      color: #fff;
+    }
+
+    .operator {
+      background-color: #ff9500;
+      color: #fff;
+    }
+
+    .clear {
+      background-color: #ff3b30;
+      color: #fff;
+    }
+
+    .equals {
+      background-color: #4cd964;
+      color: #fff;
+      grid-column: span 2;
+    }
+
+    
+
+    .zero {
+      grid-column: span 2;
+    }
+
+    .ox{
+      background-color: #ff3b30;
+      color: #f0f0f0;
+      grid-column: span 2;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="calculator">
+    <input type="text" class="display" id="display" disabled />
+
+    <div class="buttons">
+      <button class="clear" onclick="clearDisplay()">C</button>
+      <button onclick="appendToDisplay('(')">(</button>
+      <button onclick="appendToDisplay(')')">)</button>
+      <button class="operator" onclick="appendToDisplay('/')">÷</button>
+
+      <button onclick="appendToDisplay('7')">7</button>
+      <button onclick="appendToDisplay('8')">8</button>
+      <button onclick="appendToDisplay('9')">9</button>
+      <button class="operator" onclick="appendToDisplay('*')">×</button>
+
+      <button onclick="appendToDisplay('4')">4</button>
+      <button onclick="appendToDisplay('5')">5</button>
+      <button onclick="appendToDisplay('6')">6</button>
+      <button class="operator" onclick="appendToDisplay('-')">−</button>
+
+      <button onclick="appendToDisplay('1')">1</button>
+      <button onclick="appendToDisplay('2')">2</button>
+      <button onclick="appendToDisplay('3')">3</button>
+      <button class="operator" onclick="appendToDisplay('+')">+</button>
+
+      <button class="zero" onclick="appendToDisplay('0')">0</button>
+      <button onclick="appendToDisplay('.')">.</button>
+      <button onclick="appendToDisplay('%')">%</button>
+      <button class="equals" onclick="calculate()">=</button>
+      <button class="ox" onclick="deleteDisplay()">del</button>
     </div>
-    <!-- script -->
-    <script src="js/main.js"></script>
-  </body>
+  </div>
+
+  <script>
+    function appendToDisplay(value) {
+      document.getElementById('display').value += value;
+    }
+
+    function clearDisplay() {
+      document.getElementById('display').value = '';
+    }
+
+    function deleteDisplay(){
+    display.value = display.value.slice(0,-1);
+    }
+
+    function calculate() {
+      try {
+        let expression = document.getElementById('display').value;
+
+        // Handle percentage: replace % with /100
+        expression = expression.replace(/%/g, '*0.01');
+
+        document.getElementById('display').value = eval(expression);
+      } catch (error) {
+        alert('Invalid Expression');
+      }
+    }
+  </script>
+
+</body>
 </html>
